@@ -27,31 +27,34 @@
         </ion-chip>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option>
+        <ion-item-option (click)='exibirAlertaConfirmar()'>
           <ion-icon slot="icon-only" name="star"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <!--Filme Number 2-->
+    <!--Filme Numero 2-->
     <ion-item-sliding>
       <ion-item>
         <ion-thumbnail slot="start">
           <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1iVjKCGHPVNj7IQVB1DdpL8U7Y8.jpg">
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
-          <h1>A era do gelo <br />As aventuras de <b>BUCK</b></h1>
-          <p>28/01/2022 (BR) 1h 21m</p>
-          <p>Animação, Comédia, Aventura, Família</p>
+          <div>
+            <h1>A era do gelo <br />As aventuras de <b>BUCK</b></h1>
+            <p>28/01/2022 (BR) 1h 21m</p>
+            <p>Animação, Comédia, Aventura, Família</p>
+          </div>
         </ion-label>
         <ion-chip>
           <ion-label color="success" outline>69%</ion-label>
         </ion-chip>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option>
+        <ion-item-option (click)='exibirAlertaConfirmar()'>
           <ion-icon slot="icon-only" name="star"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+
   </ion-list>
 </ion-content>
