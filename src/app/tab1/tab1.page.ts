@@ -1,5 +1,7 @@
+
 import { AlertController, ToastController } from '@ionic/angular';
 import { Component } from '@angular/core';
+import { IFilme } from './models/IFilme.model';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +9,26 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+
+  titulo = 'Videos';
+  listaVideos: IFilme[] = [
+    {
+      nome: 'A era do gelo \n As aventuras de BUCK',
+      lancamento: '28/01/2022 (BR)',
+      duracao: '1h 21m',
+      classificacao: '69%',
+      cartaz: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1iVjKCGHPVNj7IQVB1DdpL8U7Y8.jpg',
+      generos: ['Animação', 'Comédia', 'Aventura', 'Família']
+    },
+    {
+      nome: 'O projeto ADAM',
+      lancamento: '11/03/2022 (US)',
+      duracao: '1h 46m',
+      classificacao: '76%',
+      cartaz: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/11MJy6lkt7yTEIowEPIkaK4B7lM.jpg',
+      generos: ['Ação', 'Aventura', 'Comédia', 'Ficção científica']
+    },
+  ];
 
   constructor(
     public alertController: AlertController,
@@ -40,9 +62,9 @@ export class Tab1Page {
 
   async apresentarToast() {
     const toast = await this.toastController.create({
-      message:  'Filme Adicionado aos Favoritos',
+      message: 'Filme Adicionado aos Favoritos',
       duration: 2000,
-      color:    'success'
+      color: 'success'
     });
     toast.present();
   }
