@@ -1,7 +1,11 @@
+import { IGenero } from './models/IGenero.model';
+import { GeneroService } from './../services/genero.service';
+import { IListaFilmes, IFilmeApi } from './models/IFilmeAPI.model';
+import { FilmeService } from './../services/filme.service';
 import { DadosService } from './../services/dados.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IFilme } from './models/IFilme.model';
 import { Router } from '@angular/router';
 
@@ -10,9 +14,9 @@ import { Router } from '@angular/router';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit{
 
-  titulo = 'Videos';
+  titulo = 'Filmes e Séries';
   listaVideos: IFilme[] = [
     {
       nome: 'A era do gelo \n As aventuras de BUCK (2022)',
@@ -33,15 +37,29 @@ export class Tab1Page {
       pagina: '/o-projeto-adam',
     },
   ];
+  listaFilmes: IListaFilmes;
+  generos: string[] = [];
 
   constructor(
     public alertController: AlertController,
     public toastController: ToastController,
     public dadosService: DadosService,
-    public route: Router
-  ) { }
+    public filmeService: FilmeService,
+    public generoService: GeneroService,
+    public route: Router) { }
+  //metodo que vai buscar o filme ou serie
+  buscarFilmes(evento) {
+    console.log(evento.target.value);
+    const busca = evento.target.value;
+    if (busca && busca.trim() !== '') {
+      this.filmeService.buscarFilmes(busca).subscribe(dados => {
+        console.log(dados);
+        this.listaFilmes = dados;
+      });
+    }
+  }
 
-  exibirFilme(filme: IFilme) {
+  exibirFilme(filme: IFilmeApi) {
     this.dadosService.guardarDados('filme', filme);
     this.route.navigateByUrl('dados-filme');
   }
@@ -80,5 +98,15 @@ export class Tab1Page {
     toast.present();
   }
 
+  ngOnInit(): void {
+    this.generoService.buscarGeneros().subscribe(dados =>{
+      console.log('Generos: ', dados.genres);
+      dados.genres.forEach(genero =>{
+        this.generos[genero.id] = genero.name;
+      });
+
+      this.dadosService.guardarDados('generos', this.generos);
+    });
+  }
 
 }
